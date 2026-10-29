@@ -7,8 +7,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.server.ResponseStatusException;
-
-import com.ruta_limpia.flota_service.dto.SolicitudDtos.UsuarioInfo;
+import com.ruta_limpia.flota_service.dto.FlotaDtos.UsuarioInfo;
 
 @Component
 public class AuthClient {

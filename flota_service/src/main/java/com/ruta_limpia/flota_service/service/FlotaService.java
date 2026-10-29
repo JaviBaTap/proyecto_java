@@ -11,7 +11,7 @@ import com.ruta_limpia.flota_service.client.RutasClient;
 import com.ruta_limpia.flota_service.dto.FlotaDtos.AsignacionRequest;
 import com.ruta_limpia.flota_service.model.Camion;
 import com.ruta_limpia.flota_service.repository.CamionRepository;
-
+import com.ruta_limpia.flota_service.dto.FlotaDtos.ParadaRequest;
 import jakarta.transaction.Transactional;
 
 @Service
