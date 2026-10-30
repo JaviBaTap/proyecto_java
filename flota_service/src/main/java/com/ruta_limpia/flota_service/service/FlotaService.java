@@ -28,6 +28,12 @@ public class FlotaService {
     public List<Camion> obtenerTodos() { return repo.findAll(); }
     public List<Camion> disponibles() { return repo.disponibles(); }
 
+    public boolean eliminar(Long id) {
+        if (!repo.existsById(id)) return false;
+        repo.deleteById(id);
+        return true;
+    }
+
     public Optional<Camion> cambiarActivo(Long id, boolean activo) {
         return repo.findById(id).map(c -> { c.setActivo(activo); return repo.save(c); });
     }

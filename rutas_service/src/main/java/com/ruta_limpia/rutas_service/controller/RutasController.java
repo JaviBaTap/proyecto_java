@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,6 +48,14 @@ public class RutasController {
       @PathVariable Long id, @RequestBody ResultadoRequest body) {
     UsuarioInfo u = auth.exigirRol(token, "CONDUCTOR");
     return service.registrarResultado(id, u.camionId(), body);
+  }
+
+  @DeleteMapping("/paradas/{id}")
+  public ResponseEntity<Void> eliminarParada(
+      @RequestHeader(value = "Authorization", required = false) String token,
+      @PathVariable Long id) {
+    auth.exigirRol(token, "CONDUCTOR");
+    return service.eliminar(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
   }
 
   @PostMapping("/paradas")

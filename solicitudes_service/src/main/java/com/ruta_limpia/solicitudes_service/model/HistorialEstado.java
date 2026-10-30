@@ -2,6 +2,7 @@ package com.ruta_limpia.solicitudes_service.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,7 @@ public class HistorialEstado {
 
     private String observacion;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "solicitud_id", nullable = false)
     private SolicitudRetiro solicitud;

@@ -1,5 +1,7 @@
 package com.ruta_limpia.rutas_service.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -30,6 +32,7 @@ public class Parada {
   private String estado;         
   private String observacion;    
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ruta_id")
     private Ruta ruta;

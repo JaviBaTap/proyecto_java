@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +19,7 @@ import com.ruta_limpia.solicitudes_service.dto.SolicitudDtos.ActualizarEstadoReq
 import com.ruta_limpia.solicitudes_service.dto.SolicitudDtos.CrearSolicitudRequest;
 import com.ruta_limpia.solicitudes_service.dto.SolicitudDtos.UsuarioInfo;
 import com.ruta_limpia.solicitudes_service.model.SolicitudRetiro;
+import com.ruta_limpia.solicitudes_service.model.HistorialEstado;
 import com.ruta_limpia.solicitudes_service.service.SolicitudService;
 
 @RestController
@@ -54,6 +56,24 @@ public class SolicitudController {
     return service.buscarPorFolio(folio, u.id())
       .map(ResponseEntity::ok)
       .orElse(ResponseEntity.notFound().build());
+  }
+
+  @GetMapping("/{id}/historial")
+  public ResponseEntity<List<HistorialEstado>> historial(
+      @RequestHeader(value = "Authorization", required = false) String token,
+      @PathVariable Long id) {
+    UsuarioInfo u = auth.exigirRol(token, "VECINO");
+    return service.historialDeUsuario(id, u.id())
+        .map(ResponseEntity::ok)
+        .orElse(ResponseEntity.notFound().build());
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> eliminar(
+      @RequestHeader(value = "Authorization", required = false) String token,
+      @PathVariable Long id) {
+    UsuarioInfo u = auth.exigirRol(token, "VECINO");
+    return service.eliminar(id, u.id()) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
   }
 
   @GetMapping("/interno/{id}")

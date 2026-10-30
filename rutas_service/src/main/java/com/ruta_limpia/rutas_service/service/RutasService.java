@@ -39,6 +39,12 @@ public class RutasService {
         return repo.findByCamionId(camionId);
     }
 
+    public boolean eliminar(Long id) {
+        if (!repo.existsById(id)) return false;
+        repo.deleteById(id);
+        return true;
+    }
+
     public Parada registrarResultado(Long paradaId, Long camionId, ResultadoRequest r) {
         if (!List.of("REALIZADA", "FALLIDA").contains(r.estado()))
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Estado inválido");
